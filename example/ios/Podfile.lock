@@ -1,0 +1,43 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_debug_database (0.0.1):
+    - Flutter
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - get_ip (0.0.1):
+    - Flutter
+  - sqflite (0.0.1):
+    - Flutter
+    - FMDB (~> 2.7.2)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_debug_database (from `.symlinks/plugins/flutter_debug_database/ios`)
+  - get_ip (from `.symlinks/plugins/get_ip/ios`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_debug_database:
+    :path: ".symlinks/plugins/flutter_debug_database/ios"
+  get_ip:
+    :path: ".symlinks/plugins/get_ip/ios"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_debug_database: 47ae7bdc851b343ba392d9c62bc12392e5d26963
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  get_ip: c063133e0a399ae4089048c90d6a232cb2344846
+  sqflite: 4001a31ff81d210346b500c55b17f4d6c7589dd0
+
+PODFILE CHECKSUM: c34e2287a9ccaa606aeceab922830efb9a6ff69a
+
+COCOAPODS: 1.9.3
