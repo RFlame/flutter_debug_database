@@ -145,10 +145,7 @@ class ClientServer {
               databaseName = route.substring(route.indexOf('=') + 1);
             }
             String dbPath = await getDatabasesPath();
-            database = await openDatabase('$dbPath/$databaseName',
-                version: 1,
-                onCreate: (Database db, int version) async {
-                });
+            database = await openDatabase('$dbPath/$databaseName',);
             List<Map> tableList = await database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' OR type='view' ORDER BY name COLLATE NOCASE");
             print('getTableList:$tableList');
             DBResponse dbResponse = DBResponse();
