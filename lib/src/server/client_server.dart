@@ -69,16 +69,17 @@ class ClientServer {
               var dbDirector = Directory(path);
               List<FileSystemEntity> files = dbDirector.listSync();
               for(FileSystemEntity fileSystemEntity in files) {
-                List<String> dbNames = [];
                 if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
+                  List<String> dbNames = [];
                   String fileName = fileSystemEntity.path.split('/').last;
                   print('db fileSystemEntity fileName:$fileName');
                   dbNames.add(fileName);
                   //TODO 加密数据库处理
                   dbNames.add('false');
                   dbNames.add('true');
+                  rows.add(dbNames);
                 }
-                rows.add(dbNames);
+
               }
             }
 
