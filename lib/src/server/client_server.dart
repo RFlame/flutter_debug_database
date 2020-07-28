@@ -65,7 +65,7 @@ class ClientServer {
             String dbPath = await getDatabasesPath();
             FlutterDebugDatabase.add(dbPath);
             List<List<String>> rows = [];
-            for(String path in FlutterDebugDatabase.allDbPaths) {
+            for(String path in FlutterDebugDatabase.allDbPaths.values) {
               var dbDirector = Directory(path);
               List<FileSystemEntity> files = dbDirector.listSync();
               for(FileSystemEntity fileSystemEntity in files) {
