@@ -71,9 +71,9 @@ class ClientServer {
               for(FileSystemEntity fileSystemEntity in files) {
                 if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
                   List<String> dbNames = [];
-                  String fileName = fileSystemEntity.path.split('/').last;
-                  print('db fileSystemEntity fileName:$fileName');
-                  dbNames.add(fileName);
+//                  String fileName = fileSystemEntity.path.split('/').last;
+                  print('db fileSystemEntity path:${fileSystemEntity.path}');
+                  dbNames.add(fileSystemEntity.path);
                   //TODO 加密数据库处理
                   dbNames.add('false');
                   dbNames.add('true');
@@ -145,8 +145,8 @@ class ClientServer {
               databaseName = route.substring(route.indexOf('=') + 1);
             }
             if(databaseName.endsWith(".db")) {
-              String dbPath = await getDatabasesPath();
-              database = await openDatabase('$dbPath/$databaseName', onCreate: null, onUpgrade: null, onDowngrade: null);
+//              String dbPath = await getDatabasesPath();
+              database = await openDatabase('$databaseName', onCreate: null, onUpgrade: null, onDowngrade: null);
               List<Map> tableList = await database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' OR type='view' ORDER BY name COLLATE NOCASE");
 
               DBResponse dbResponse = DBResponse();
