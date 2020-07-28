@@ -63,21 +63,25 @@ class ClientServer {
           print('route:$route');
           if (route.startsWith("getDbList")) {
             String dbPath = await getDatabasesPath();
-            var dbDirector = Directory(dbPath);
-            List<FileSystemEntity> files = dbDirector.listSync();
+            FlutterDebugDatabase.add(dbPath);
             List<List<String>> rows = [];
-            for(FileSystemEntity fileSystemEntity in files) {
-              List<String> dbNames = [];
-              if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
-                String fileName = fileSystemEntity.path.split('/').last;
-                print('db fileSystemEntity fileName:$fileName');
-                dbNames.add(fileName);
-                //TODO 加密数据库处理
-                dbNames.add('false');
-                dbNames.add('true');
+            for(String path in FlutterDebugDatabase.allDbPaths) {
+              var dbDirector = Directory(path);
+              List<FileSystemEntity> files = dbDirector.listSync();
+              for(FileSystemEntity fileSystemEntity in files) {
+                List<String> dbNames = [];
+                if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
+                  String fileName = fileSystemEntity.path.split('/').last;
+                  print('db fileSystemEntity fileName:$fileName');
+                  dbNames.add(fileName);
+                  //TODO 加密数据库处理
+                  dbNames.add('false');
+                  dbNames.add('true');
+                }
+                rows.add(dbNames);
               }
-              rows.add(dbNames);
             }
+
             DBResponse dbResponse = DBResponse();
             dbResponse.isSuccessful = true;
             dbResponse.rows = rows;

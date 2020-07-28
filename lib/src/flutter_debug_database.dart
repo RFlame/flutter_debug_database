@@ -12,6 +12,19 @@ class FlutterDebugDatabase {
     return version;
   }
 
+  static List<String> allDbPaths = [];
+
+  static config(List<String> dbPaths) {
+    allDbPaths = dbPaths;
+  }
+
+  static add(String path) {
+    if(allDbPaths == null) {
+      allDbPaths = [];
+    }
+    allDbPaths.add(path);
+  }
+
   static init() async{
     await ClientServer.start();
   }
