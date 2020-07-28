@@ -144,23 +144,25 @@ class ClientServer {
             if(route.contains('?database=')) {
               databaseName = route.substring(route.indexOf('=') + 1);
             }
-            String dbPath = await getDatabasesPath();
-            database = await openDatabase('$dbPath/$databaseName', onCreate: null, onUpgrade: null, onDowngrade: null);
-            List<Map> tableList = await database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' OR type='view' ORDER BY name COLLATE NOCASE");
-            print('getTableList:$tableList');
-            DBResponse dbResponse = DBResponse();
-            dbResponse.dbVersion = await database?.getVersion()??0;
-            dbResponse.isSuccessful = true;
-            List<String> tableName = [];
-            if(tableList != null && tableList.length > 0) {
-              tableList.forEach((tableMap) {
-                tableMap.values.forEach((value) {
-                  tableName.add(value);
+            if(databaseName.endsWith(".db")) {
+              String dbPath = await getDatabasesPath();
+              database = await openDatabase('$dbPath/$databaseName', onCreate: null, onUpgrade: null, onDowngrade: null);
+              List<Map> tableList = await database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' OR type='view' ORDER BY name COLLATE NOCASE");
+              print('getTableList:$tableList');
+              DBResponse dbResponse = DBResponse();
+              dbResponse.dbVersion = await database?.getVersion()??0;
+              dbResponse.isSuccessful = true;
+              List<String> tableName = [];
+              if(tableList != null && tableList.length > 0) {
+                tableList.forEach((tableMap) {
+                  tableMap.values.forEach((value) {
+                    tableName.add(value);
+                  });
                 });
-              });
+              }
+              dbResponse.rows = tableName;
+              dataBytes = utf8.encode(json.encode(dbResponse.toJson()));
             }
-            dbResponse.rows = tableName;
-            dataBytes = utf8.encode(json.encode(dbResponse.toJson()));
           } else if (route.startsWith("addTableData")) {
 
           } else if (route.startsWith("updateTableData")) {
