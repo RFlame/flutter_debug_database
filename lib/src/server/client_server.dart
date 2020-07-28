@@ -148,9 +148,10 @@ class ClientServer {
               String dbPath = await getDatabasesPath();
               database = await openDatabase('$dbPath/$databaseName', onCreate: null, onUpgrade: null, onDowngrade: null);
               List<Map> tableList = await database.rawQuery("SELECT name FROM sqlite_master WHERE type='table' OR type='view' ORDER BY name COLLATE NOCASE");
-              print('getTableList:$tableList');
+
               DBResponse dbResponse = DBResponse();
               dbResponse.dbVersion = await database?.getVersion()??0;
+              print('getTableList:$tableList,dbVersion:${dbResponse.dbVersion}');
               dbResponse.isSuccessful = true;
               List<String> tableName = [];
               if(tableList != null && tableList.length > 0) {
