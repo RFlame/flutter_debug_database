@@ -66,20 +66,23 @@ class ClientServer {
             FlutterDebugDatabase.add(dbPath);
             List<List<String>> rows = [];
             for(String path in FlutterDebugDatabase.allDbPaths.values) {
-              var dbDirector = Directory(path);
-              List<FileSystemEntity> files = dbDirector.listSync();
-              for(FileSystemEntity fileSystemEntity in files) {
-                if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
-                  List<String> dbNames = [];
+              try {
+                var dbDirector = Directory(path);
+                List<FileSystemEntity> files = dbDirector.listSync();
+                for(FileSystemEntity fileSystemEntity in files) {
+                  if(FileSystemEntity.isFileSync(fileSystemEntity.path)) {
+                    List<String> dbNames = [];
 //                  String fileName = fileSystemEntity.path.split('/').last;
-                  print('db fileSystemEntity path:${fileSystemEntity.path}');
-                  dbNames.add(fileSystemEntity.path);
-                  //TODO 加密数据库处理
-                  dbNames.add('false');
-                  dbNames.add('true');
-                  rows.add(dbNames);
+                    print('db fileSystemEntity path:${fileSystemEntity.path}');
+                    dbNames.add(fileSystemEntity.path);
+                    //TODO 加密数据库处理
+                    dbNames.add('false');
+                    dbNames.add('true');
+                    rows.add(dbNames);
+                  }
                 }
-
+              } catch(e) {
+                continue;
               }
             }
 
